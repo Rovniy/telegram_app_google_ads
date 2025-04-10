@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+      <script async
+
+              data-admob-interstitial-slot="ca-app-pub-23211928466/ingame_interstitial_test"
+              data-admob-rewarded-slot="ca-app-pub-23211928466/ingame_rewarded_test"
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-23211928466"
+              crossorigin="anonymous">
+      </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+
+    <iframe src="https://pubads.g.doubleclick.net/gampad/ads?iu=/23211928466/ingame_video&description_url=https%3A%2F%2Fplaygama.com&sz=400x300%7C640x480&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&impl=s&correlator=5435" crossorigin="anonymous"></iframe>
+
+    <script>
+	    window.adsbygoogle = window.adsbygoogle || [];
+	    var adBreak = adConfig = function(o) {adsbygoogle.push(o);}
+
+	    const showAd = () => {
+		    adBreak({
+		        type: 'start',
+		        name: 'start_game',
+		        beforeAd: () => {
+		            console.log('beforeAd')
+		        },
+		        afterAd: () => {
+		            console.log('afterAd')
+		        },
+		    });
+            //
+		    // adBreak({
+			//     type: 'reward',
+			//     name: '12one_more_chance',
+			//     beforeAd: () => {
+			// 	    console.log('beforeAd')
+			//     },
+			//     afterAd: () => {
+			// 	    console.log('afterAd')
+			//     },
+			//     beforeReward: (showAdFn) => {
+			// 	    const r = confirm('Watch this video to get one more chance?');
+			// 	    console.log('r', r)
+			// 	    if (r) {
+			// 		    showAdFn();
+			// 	    } else {
+			// 		    alert('You need to restart the game');
+			// 	    }
+			//     },
+			//     adDismissed: () => {
+			// 	    console.log('adDismissed')
+			//     },
+			//     adViewed: () => {
+			// 	    console.log('adViewed')
+			//     }
+		    // });
+	    }
+
+	    adConfig({
+            sound: 'on',
+            preloadAdBreaks: 'on',
+            onReady: showAd
+		});
+
+
+	    // setTimeout(() => {
+
+	        // adBreak({
+		    //     type: 'next',
+		    //     name: 'continue_game',
+		    //     beforeAd: () => {
+			//         console.log('beforeAd')
+		    //     },
+		    //     afterAd: () => {
+			//         console.log('afterAd')
+		    //     },
+	        // });
+            //
+        // })
+    </script>
+  </body>
+</html>
