@@ -22,3 +22,10 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_APP__ADS }}
           channelId: live
           projectId: app--ads
+
+      - name: Send Discord notification
+        run: |
+          LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          curl -s -X POST -H "Content-Type: application/json" \
+            -d "{\"content\": \"💵 [Google Ads Test App](https://app--ads.web.app/) deployed! Commit: **$LAST_COMMIT_MESSAGE**\"}" \
+            ${{ secrets.Add }}
