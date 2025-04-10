@@ -23,7 +23,6 @@
 </template>
 
 <script lang="ts">
-import { Game } from './game';
 import { defineComponent, ref, onMounted } from 'vue';
 import AdModal from './components/AdModal.vue';
 import Instream from './components/Instream.vue';
