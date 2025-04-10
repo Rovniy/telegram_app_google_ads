@@ -10,9 +10,11 @@
     "deploy:hosting": "firebase deploy --only hosting"
   },
   "dependencies": {
+    "@telegram-apps/sdk-vue": "^2.0.19",
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@types/google-publisher-tag": "^1.20250210.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "sass-embedded": "^1.86.3",
