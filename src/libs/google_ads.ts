@@ -1,5 +1,5 @@
 // @ts-ignore
-import type { googletag } from 'google-publisher-tag';
+import type {googletag} from 'google-publisher-tag';
 
 /**
  * Initializes the ad system by loading both GPT and IMA SDK scripts,
@@ -128,8 +128,8 @@ export class InterstitialAd {
 		if (this.slot) return;
 
 		window.googletag.cmd.push(() => {
-			const desktopSizes : googletag.GeneralSize = this.adUnitConfig.sizes.filter(i => i[0] > 300)
-			const mobileSizes : googletag.GeneralSize = this.adUnitConfig.sizes.filter(i => i[0] <= 300)
+			const desktopSizes: googletag.GeneralSize = this.adUnitConfig.sizes.filter(i => i[0] > 300)
+			const mobileSizes: googletag.GeneralSize = this.adUnitConfig.sizes.filter(i => i[0] <= 300)
 			const mapping = window.googletag.sizeMapping()
 				.addSize([1024, 0], desktopSizes) // For screens wider than 1024px, allow larger sizes.
 				.addSize([0, 0], mobileSizes) // For smaller screens, only use the ad size that fits.

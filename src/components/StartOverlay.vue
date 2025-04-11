@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits([ 'play' ])
+const emit = defineEmits(['play'])
 
 const play = () => {
   emit('play')

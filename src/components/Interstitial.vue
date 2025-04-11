@@ -1,8 +1,8 @@
 <template>
   <div class="ads_container" v-show="isShowing">
-    <div :id="SLOT_ID" />
+    <div :id="SLOT_ID"/>
 
-    <button class="closer" @click="hideInterstitialAd" :disabled="buttonDisabled" v-text="buttonText" />
+    <button class="closer" @click="hideInterstitialAd" :disabled="buttonDisabled" v-text="buttonText"/>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ const isShowing = ref(false)
 const timeRemaining = ref(5)
 const countdown = ref(0)
 
-const emit = defineEmits([ 'end' ])
+const emit = defineEmits(['end'])
 
 const interstitial = new InterstitialAd(
     {
@@ -38,12 +38,10 @@ function startCountdown() {
     timeRemaining.value--
   }, 1000)
 }
-
 function showInterstitialAd() {
   interstitial.show()
   isShowing.value = true
 }
-
 function hideInterstitialAd() {
   interstitial.hide()
   isShowing.value = false

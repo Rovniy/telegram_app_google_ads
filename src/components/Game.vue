@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import {ref} from 'vue';
 
 // Define component events: "win" and "lose"
 const emit = defineEmits(['win', 'lose']);

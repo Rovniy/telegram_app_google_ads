@@ -1,5 +1,5 @@
 <template>
-  <StartOverlay @play="startPlay" v-if="!isPlaying" />
+  <StartOverlay @play="startPlay" v-if="!isPlaying"/>
 
   <template v-else>
     <header class="header">
@@ -7,14 +7,14 @@
     </header>
 
     <main class="main">
-      <Game @lose="playerLose" @win="addReward" />
+      <Game @lose="playerLose" @win="addReward"/>
 
-      <Interstitial v-if="isLosing" @end="resumeGame" />
+      <Interstitial v-if="isLosing" @end="resumeGame"/>
 
       <Rewarded @rewarded="addReward"/>
     </main>
 
-    <Instream />
+    <Instream/>
   </template>
 </template>
 
