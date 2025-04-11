@@ -78,6 +78,7 @@ onUnmounted(() => {
     left: 50%;
     bottom: 20px;
     transform: translateX(-50%);
+    white-space: nowrap;
   }
 }
 </style>
