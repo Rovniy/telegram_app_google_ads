@@ -44,16 +44,16 @@ function addReward() {
   score.value++
 }
 function getUsername() {
-  if (window.Telegram && window.Telegram.WebApp) {
-    window.Telegram.WebApp.expand();
-
     setTimeout(() => {
-      if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-        userName.value = window.Telegram.WebApp.initDataUnsafe.user.username ||
-            window.Telegram.WebApp.initDataUnsafe.user.first_name || 'Anonymous';
+      if (window.Telegram && window.Telegram.WebApp) {
+        window.Telegram.WebApp.expand();
+
+        if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+          userName.value = window.Telegram.WebApp.initDataUnsafe.user.username ||
+              window.Telegram.WebApp.initDataUnsafe.user.first_name || 'Anonymous';
+        }
       }
     }, 2000)
-  }
 }
 
 onMounted(getUsername)
