@@ -1,29 +1,66 @@
-<!-- src/App.vue -->
 <template>
-  <header class="header">
-    <h1 class="title">Points: {{ points }}</h1>
-  </header>
+  <StartOverlay @play="startPlay" v-if="!isPlaying" />
 
-  <main class="main">
-    <Interstitial/>
-    <Rewarded/>
-  </main>
+  <template v-else>
+    <header class="header">
+      <h1 class="title">Hello, {{ userName }}! Your score: {{ score }}</h1>
+    </header>
 
-  <!--    <Instream />-->
+    <main class="main">
+      <Game @lose="playerLose" @win="addReward" />
+
+      <Interstitial v-if="isLosing" @end="resumeGame" />
+
+      <Rewarded @rewarded="addReward"/>
+    </main>
+
+    <Instream />
+  </template>
 </template>
 
 <script lang="ts" setup>
+import Game from "./components/Game.vue"
+import StartOverlay from "./components/StartOverlay.vue"
 import Interstitial from "./components/Interstitial.vue"
 import Rewarded from "./components/Rewarded.vue"
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import Instream from './components/Instream.vue';
 
-const points = ref(0)
+const score = ref(0)
+const isPlaying = ref(false)
+const isLosing = ref(false)
+const userName = ref('Anonymous');
+
+function startPlay() {
+  isPlaying.value = true
+}
+function playerLose() {
+  isLosing.value = true
+}
+function resumeGame() {
+  isLosing.value = false
+}
+function addReward() {
+  score.value++
+}
+function getUsername() {
+  if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.expand();
+
+    if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+      userName.value = window.Telegram.WebApp.initDataUnsafe.user.username ||
+          window.Telegram.WebApp.initDataUnsafe.user.first_name || 'Anonymous';
+    }
+  }
+}
+
+onMounted(getUsername)
 </script>
 
 <style scoped lang="scss">
 .header {
   background-color: #3b9c61;
+  border-radius: 8px;
   padding: 10px;
   text-align: center;
 
@@ -38,18 +75,5 @@ const points = ref(0)
 .main {
   margin: 50px auto;
   text-align: center;
-}
-
-button {
-  padding: 15px 30px;
-  margin: 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-iframe {
-  width: 640px;
-  height: 480px;
-  max-width: 100%;
 }
 </style>

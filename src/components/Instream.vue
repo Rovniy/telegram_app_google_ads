@@ -1,28 +1,34 @@
 <template>
-  <footer class="instream">
-    <h2 class="title">Rewarded Instream Ads:</h2>
-
-    <iframe
-        id="rewarded-instream-ad"
-        :src="instreamAdUrl"
-        frameborder="0"
-        scrolling="no"
-    ></iframe>
-  </footer>
+    <div id="video-ad-container" class="video_container" ref="adContainerElement">
+      <video id="videoPlayer" width="100%" height="250" playsinline muted ref="videoElement"></video>
+    </div>
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { InstreamAd } from '../libs/google_ads.ts'
+import {onMounted, type Ref, ref} from "vue";
+import {config} from "../config.ts";
 
-const instreamAdUrl = ref('');
+const adContainerElement : Ref<HTMLElement|null> = ref(null)
+const videoElement : Ref<HTMLElement|null> = ref(null)
 
+onMounted(() => {
+  if (adContainerElement.value && videoElement.value) {
+    const instream = new InstreamAd(
+        adContainerElement.value,
+        videoElement.value,
+        config.ads.instream
+    )
+
+    instream.start()
+  }
+})
 </script>
 
 <style scoped>
-.instream {
-  margin-top: 50px;
-  padding: 20px;
-  background-color: #f0f0f0;
-  text-align: center;
+.video_container {
+  position: relative;
+  width: 100%;
+  height: 250px;
 }
 </style>

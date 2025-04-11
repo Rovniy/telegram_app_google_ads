@@ -1,18 +1,35 @@
-<script setup lang="ts">
-import GoogleAds from '../libs/google_ads.ts'
+<template>
+  <button @click="showRewardedAd" :disabled="isDisabled">💵 Show Rewarded Ads</button>
+</template>
 
-function rewardCallback() {
-  console.log('rewardCallback');
+<script setup lang="ts">
+import {RewardedAd} from '../libs/google_ads.ts'
+import {config} from "../config.ts";
+import {ref} from "vue";
+
+const isDisabled = ref(false)
+
+const emit = defineEmits(['rewarded'])
+
+const rewardedAd = new RewardedAd({
+  id: config.ads.rewarded.id
+})
+
+function callback() {
+  isDisabled.value = false
+  emit('rewarded')
+}
+
+function fallback() {
+  isDisabled.value = false
 }
 
 function showRewardedAd() {
-  GoogleAds.rewarded.show(rewardCallback)
+  isDisabled.value = true
+
+  rewardedAd.show(callback, fallback)
 }
 </script>
-
-<template>
-  <button @click="showRewardedAd">Show Rewarded Ads</button>
-</template>
 
 <style scoped lang="scss">
 .ads_container {

@@ -1,29 +1,64 @@
+<template>
+  <div class="ads_container" v-show="isShowing">
+    <div :id="SLOT_ID" />
+
+    <button class="closer" @click="hideInterstitialAd" :disabled="buttonDisabled" v-text="buttonText" />
+  </div>
+</template>
+
 <script setup lang="ts">
-import GoogleAds from '../libs/google_ads.ts'
-import {ref} from "vue";
+import {InterstitialAd} from '../libs/google_ads.ts'
+import {computed, onMounted, onUnmounted, ref} from "vue";
+import {config} from "../config.ts";
+
+const SLOT_ID = 'gpt-interstitial-slot'
 
 const isShowing = ref(false)
+const timeRemaining = ref(5)
+const countdown = ref(0)
+
+const emit = defineEmits([ 'end' ])
+
+const interstitial = new InterstitialAd(
+    {
+      id: config.ads.interstitial.id,
+      sizes: config.ads.interstitial.sizes
+    },
+    SLOT_ID)
+
+const buttonText = computed(() => {
+  if (timeRemaining.value > 0) return `⌛ Close after ${timeRemaining.value} sec.`
+
+  return '❌ Close'
+})
+const buttonDisabled = computed(() => timeRemaining.value > 0)
+
+function startCountdown() {
+  countdown.value = setInterval(() => {
+    timeRemaining.value--
+  }, 1000)
+}
 
 function showInterstitialAd() {
-  GoogleAds.interstitial.show()
+  interstitial.show()
   isShowing.value = true
 }
 
 function hideInterstitialAd() {
-  GoogleAds.interstitial.hide()
+  interstitial.hide()
   isShowing.value = false
+  emit('end')
 }
+
+onMounted(() => {
+  showInterstitialAd()
+  startCountdown()
+})
+onUnmounted(() => {
+  hideInterstitialAd()
+  clearInterval(countdown.value)
+})
 </script>
-
-<template>
-  <button @click="showInterstitialAd">Show Interstitial Ads</button>
-
-  <div class="ads_container" v-show="isShowing">
-    <div id="gpt-interstitial-slot" />
-
-    <button class="closer" @click="hideInterstitialAd">Close</button>
-  </div>
-</template>
 
 <style scoped lang="scss">
 .ads_container {
